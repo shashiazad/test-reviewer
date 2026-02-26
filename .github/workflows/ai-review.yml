@@ -4,11 +4,16 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
 jobs:
   review:
     uses: shashiazad/ai-pr-reviewer/.github/workflows/reusable-review.yml@main
     with:
-      dry_run: true    # set to false once Dell Gateway is reachable
+      dry_run: true
       max_comments: 20
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}
