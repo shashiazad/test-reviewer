@@ -1,0 +1,14 @@
+# .github/workflows/ai-review.yml
+name: AI Code Review
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    uses: shashiazad/ai-pr-reviewer/.github/workflows/reusable-review.yml@main
+    with:
+      dry_run: true    # set to false once Dell Gateway is reachable
+      max_comments: 20
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
