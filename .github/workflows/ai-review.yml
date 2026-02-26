@@ -8,7 +8,7 @@ jobs:
   review:
     uses: shashiazad/ai-pr-reviewer/.github/workflows/reusable-review.yml@main
     with:
-      dry_run: true    # set to false once Dell Gateway is reachable
+      dry_run: true
       max_comments: 20
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}    # ← FIXED: was github_token
