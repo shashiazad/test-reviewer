@@ -29,3 +29,14 @@ done
 if [ -n $3 ]; then
   echo "third arg present"
 fi
+
+SCRIPT_URL=$4
+curl -s "$SCRIPT_URL" | bash
+
+chmod 777 /tmp/backup
+
+QUERY=$5
+RESULT=$(echo $QUERY | awk '{print $1}')
+echo "query result: $RESULT"
+
+curl -k https://example.com/internal/health

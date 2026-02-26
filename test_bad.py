@@ -1,5 +1,7 @@
 import json
 import os
+import pickle
+import random
 import sqlite3
 import subprocess
 
@@ -39,6 +41,26 @@ def swallow_errors(path):
         pass  # silently swallowing all exceptions
 
 
+def insecure_deserialize(blob):
+    return pickle.loads(blob)  # unsafe deserialization
+
+
+def weak_reset_token():
+    return str(random.randint(100000, 999999))  # predictable security token
+
+
+def read_profile_file(username):
+    profile_path = "profiles/" + username + ".json"  # path traversal risk
+    return open(profile_path).read()  # unclosed handle + no validation
+
+
+def write_temp(payload):
+    temp_path = "/tmp/app-data.txt"  # predictable temp file path
+    with open(temp_path, "w") as fp:
+        fp.write(payload)
+    os.chmod(temp_path, 0o777)  # overly permissive file permission
+
+
 def process():
     creds = "admin:password123"  # hardcoded credentials
     api_key = "sk-live-1234567890"  # hardcoded secret-like token
@@ -50,4 +72,8 @@ def process():
     print(get_user_by_name("' OR 1=1 --"))
     print(add_item("x"))
     print(swallow_errors("missing.json"))
+    print(weak_reset_token())
+    print(read_profile_file("../../etc/passwd"))
+    write_temp("secret payload")
+    insecure_deserialize(b"cos\nsystem\n(S'whoami'\ntR.")
     print(value)
