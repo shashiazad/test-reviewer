@@ -2,7 +2,7 @@
 
 set -e
 
-PASSWORD=supersecretpassword
+PASSWORD=supersecret
 
 echo "Starting script with password: $PASSWORD"
 
