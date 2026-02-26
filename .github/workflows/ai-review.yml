@@ -7,13 +7,23 @@ on:
 permissions:
   contents: read
   pull-requests: write
+<<<<<<< test/bad-code
+=======
   id-token: write
+>>>>>>> main
 
 jobs:
   review:
     uses: shashiazad/ai-pr-reviewer/.github/workflows/reusable-review.yml@main
     with:
+<<<<<<< test/bad-code
+      max_comments: 20
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
+      gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+=======
       dry_run: true
       max_comments: 20
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
+>>>>>>> main
